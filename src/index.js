@@ -7,10 +7,9 @@ import { mergeSchemas } from 'graphql-tools'
 import graphqlHTTP from 'koa-graphql'
 import mount from 'koa-mount'
 import { buildSchema } from './schema'
-
-const app = new Koa()
-
 ;(async () => {
+  const app = new Koa()
+
   app.use(
     bodyParser({
       enableTypes: ['json', 'form'],
@@ -34,7 +33,7 @@ const app = new Koa()
   app.use(
     mount(
       '/',
-      graphqlHTTP(async request => {
+      graphqlHTTP(request => {
         return {
           schema: mergeSchemas({ schemas }),
           graphiql: true,
@@ -54,7 +53,7 @@ const app = new Koa()
   const PORT = 4001
 
   const server = app.listen(PORT, () => {
-    console.log({ event: 'execute' }, `API server listening on ${PORT}`)
+    console.log(`API server listening on ${PORT}`)
   })
 
   gracefulShutdown(server)

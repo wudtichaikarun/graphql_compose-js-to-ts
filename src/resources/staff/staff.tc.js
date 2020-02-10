@@ -1,4 +1,5 @@
 import { schemaComposer } from 'graphql-compose'
+import { GraphQLDirective, DirectiveLocation, GraphQLInt } from 'graphql'
 import UserTC from '../user/user.tc'
 import { FilterITC } from '../../shareType'
 import { staffs } from './staffs'

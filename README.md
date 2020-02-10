@@ -1,8 +1,14 @@
 # graphql_compose-js-to-ts
 
-### installation
+- Installation
+- GraphQL Simple query
+- GraphQL Query Fragment
+- GraphQL Alias Example
+- GraphQL Query Variables
 
 ---
+
+## Installation
 
 init server
 
@@ -11,7 +17,11 @@ npm install
 npm run dev
 ```
 
-example query `http://localhost:4001/`
+---
+
+## GraphQL Simple query
+
+`http://localhost:4001/`
 
 ```
 {
@@ -27,10 +37,10 @@ example query `http://localhost:4001/`
   },
 
   staff: StaffOne(id:2222 ){
-    id
+    staffId: id
     status
     user{
-      id
+      userId: id
       firstName
       lastName
     }
@@ -50,3 +60,104 @@ example query `http://localhost:4001/`
 }
 
 ```
+
+---
+
+## GraphQL Query Fragment
+
+```
+{
+  staffs: StaffMany(filter: {}) {
+    id
+    userId
+    status
+    user{
+      ...fullUser
+    }
+  },
+
+  staff: StaffOne(id:2222 ){
+    id
+    status
+    user{
+      ...fullUser
+    }
+  },
+
+  users: UserMany(filter: {}){
+    ...fullUser
+  },
+
+  user: UserOne(id: 1234){
+    ...fullUser
+  }
+}
+
+fragment fullUser on User {
+  id
+  firstName
+  lastName
+}
+
+```
+
+---
+
+## GraphQL Alias Example
+
+```
+{
+  staff: StaffOne(id: 2222){
+    staffId: id
+    staffStatus: status
+    userInformation: user {
+      ...fullUser
+    }
+  }
+}
+
+
+fragment fullUser on User {
+  id
+  firstName
+  lastName
+}
+
+```
+
+---
+
+## GraphQL Query Variables
+
+query
+
+```
+query Staff($id: Int!){
+  StaffOne(id: $id){
+    id
+  	userId
+    status
+    user {
+      ...fullUser
+    }
+  }
+}
+
+
+fragment fullUser on User {
+  id
+  firstName
+  lastName
+}
+
+```
+
+query variables
+
+```
+{
+  "id": 2222
+}
+```
+
+---
