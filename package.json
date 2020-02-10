@@ -1,0 +1,43 @@
+{
+  "name": "graphql_compose-js-to-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=10.1.0"
+  },
+  "scripts": {
+    "dev": "npm run start-dev",
+    "start": "npm run start-production",
+    "start-dev": "DEBUG=koa*,worker,app*,http*,base* nodemon src/index.js --exec babel-node -e js",
+    "start-production": "npm run build && node build/index.js",
+    "clean": "rm -rf build && mkdir build",
+    "build": "npm run clean && babel -d ./build ./src -s",
+    "test-unit": "NODE_ENV=test jest src/ --watchAll --verbose --coverage --runInBand",
+    "test-api": "NODE_ENV=test jest __test__ --watchAll --verbose --coverage --runInBand"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.4.4"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "graphql": "^14.6.0",
+    "graphql-compose": "^7.11.0",
+    "graphql-tools": "^4.0.6",
+    "http-graceful-shutdown": "^2.3.2",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compress": "^3.0.0",
+    "koa-graphql": "^0.8.0",
+    "koa-mount": "^4.0.0",
+    "ramda": "^0.27.0",
+    "recursive-readdir-sync": "^1.0.6"
+  }
+}
