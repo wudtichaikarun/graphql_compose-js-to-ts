@@ -8,7 +8,7 @@ export async function buildSchema() {
   // build schema
   await Promise.all(
     Object.keys(TypeComposers)
-      .filter(key => key !== 'base' && key !== 'baseEs')
+      // .filter(key => key !== 'base' && key !== 'baseEs')
       .map(key => TypeComposers[key].default())
   )
 

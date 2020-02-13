@@ -1,19 +1,21 @@
 import { schemaComposer } from 'graphql-compose'
-import { GraphQLDirective, DirectiveLocation, GraphQLInt } from 'graphql'
+import composeWithJson from 'graphql-compose-json'
+
 import UserTC from '../user/user.tc'
-import { FilterITC } from '../../shareType'
 import { staffs } from './staffs'
+
+import { FilterITC } from '../../shareType'
+/** json schema value
+ * boolean -> {"a_boolean": true}
+ * string -> {"a_string": ""}
+ * json -> {"a_json": null}
+ * array => {"a_array": []}
+ */
+import jsonSchema from './schema.json'
 
 export default function() {
   const TCname = 'Staff'
-  const TC = schemaComposer.createObjectTC({
-    name: `${TCname}`,
-    fields: {
-      id: 'Int!',
-      userId: 'Int!',
-      status: 'String'
-    }
-  })
+  const TC = composeWithJson(TCname, jsonSchema)
 
   TC.addResolver({
     name: 'findById',
