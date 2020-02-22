@@ -5,17 +5,11 @@ import UserTC from '../user/user.tc'
 import { staffs } from './staffs'
 
 import { FilterITC } from '../../shareType'
-/** json schema value
- * boolean -> {"a_boolean": true}
- * string -> {"a_string": ""}
- * json -> {"a_json": null}
- * array => {"a_array": []}
- */
-import jsonSchema from './schema.json'
+import { schema } from './schema'
 
 export default function() {
   const TCname = 'Staff'
-  const TC = composeWithJson(TCname, jsonSchema)
+  const TC = composeWithJson(TCname, schema)
 
   TC.addResolver({
     name: 'findById',

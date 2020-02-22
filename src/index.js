@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import compress from 'koa-compress'
+import { PubSub } from 'graphql-yoga'
 import cors from '@koa/cors'
 import gracefulShutdown from 'http-graceful-shutdown'
 import { mergeSchemas } from 'graphql-tools'
@@ -9,7 +10,7 @@ import mount from 'koa-mount'
 import { buildSchema } from './schema'
 ;(async () => {
   const app = new Koa()
-
+  const pubsub = new PubSub()
   app.use(
     bodyParser({
       enableTypes: ['json', 'form'],
@@ -38,7 +39,8 @@ import { buildSchema } from './schema'
           schema: mergeSchemas({ schemas }),
           graphiql: true,
           context: {
-            req: request
+            req: request,
+            pubsub
           },
           formatError: err => ({
             locations: err.locations,
