@@ -24,7 +24,7 @@ export default function () {
   //   },
   // })
 
-  // ## 3 using SDL for definition new ObjectType
+  // ## 3 using SDL(schema definition language) for definition new ObjectType
   // schemaComposer.createEnumTC(`enum StatusEnum { NEW APPROVED DECLINED }`)
   // const TC = `type Simple {
   //   id: String
@@ -66,7 +66,22 @@ export default function () {
   // })
 
   schemaComposer.Query.addFields({
-    SimpleQuery: {
+    SimpleQueryMany: {
+      type: [TC],
+      resolve: () => [
+        {
+          id: 'simpleId_1',
+          description: 'example create query resolver',
+          status: 'NEW',
+          xx: 'xx',
+        },
+        {
+          id: 'simpleId_1',
+          description: 'example create query resolver',
+        },
+      ],
+    },
+    SimpleQueryOne: {
       type: TC,
       resolve: () => ({
         id: 'simpleId_1',
