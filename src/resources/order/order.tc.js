@@ -1,46 +1,37 @@
 import { schemaComposer } from 'graphql-compose'
 import composeWithJson from 'graphql-compose-json'
+import { PubSub } from 'graphql-subscriptions'
+import { withFilter } from 'graphql-subscriptions'
 
-import UserTC from '../user/user.tc'
+import TripTC from '../trip/trip.tc'
 
 import { FilterITC } from '../../shareType'
 import { schema } from './schema'
-import { staffs } from '../../../build/resources/staff/staffs'
 
-function getStaffs() {
+async function getOrders() {
   return Promise.resolve([
     {
-      id: 'staffId_1',
-      userId: 'userId_1',
-      status: 'ONLINE',
+      id: 'orderId_1',
+      status: 'DONE',
     },
     {
-      id: 'staffId_2',
-      userId: 'userId_2',
-      status: 'ONLINE',
+      id: 'orderId_2',
+      status: 'DONE',
     },
     {
-      id: 'staffId_3',
-      userId: 'userId_3',
-      status: 'OFFLINE',
+      id: 'orderId_3',
+      status: 'DONE',
+    },
+    {
+      id: 'orderId_4',
+      status: 'FAILED',
     },
   ])
 }
 
 export default function () {
-  const TCname = 'Staff'
-  // ## 1
+  const TCname = 'Order'
   const TC = composeWithJson(TCname, schema)
-
-  // ## 2
-  // const TC = schemaComposer.createObjectTC({
-  //   name: `${TCname}`,
-  //   fields: {
-  //     id: 'String',
-  //     userId: 'String',
-  //     status: 'String'
-  //   }
-  // })
 
   TC.addResolver({
     name: 'findById',
@@ -50,8 +41,8 @@ export default function () {
     },
     // `resolveParams` consist from { source, args, context, info, projection }
     resolve: async (resolveParams) => {
-      const staffs = await getStaffs()
-      return staffs.find((staff) => staff.id === resolveParams.args.id)
+      const orders = await getOrders()
+      return orders.find((order) => order.id === resolveParams.args.id)
     },
   })
 
@@ -64,18 +55,18 @@ export default function () {
     // `resolveParams` consist from { source, args, context, info, projection }
     resolve: async (resolveParams) => {
       const { filter } = resolveParams.args
-      const staffs = await getStaffs()
-      return staffs.slice(0, filter.limit || staffs.length)
+      const orders = await getOrders()
+      return orders.slice(0, filter.limit || staffs.length)
     },
   })
 
-  TC.addRelation('user', {
+  TC.addRelation('trip', {
     resolver: () => {
-      return UserTC().getResolver('findById')
+      return TripTC().getResolver('findByOrderId')
     },
     prepareArgs: {
-      id: (source) => {
-        return source.userId
+      orderId: (source) => {
+        return source.id
       },
     },
   })

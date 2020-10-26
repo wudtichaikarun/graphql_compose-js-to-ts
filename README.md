@@ -1,10 +1,12 @@
 # graphql_compose-js-to-ts
 
 - Installation
+- Data model example
 - GraphQL Simple query
 - GraphQL Query Fragment
 - GraphQL Alias Example
 - GraphQL Query Variables
+- Middleware
 
 ---
 
@@ -15,6 +17,35 @@ init server
 ```
 npm install
 npm run dev
+```
+
+---
+
+## Data model example
+
+```Json
+{
+  "order": {
+    "id": "orderId_1",
+    "status": "DONE"
+  },
+  "trip": {
+    "id": "tripId_1",
+    "staffId": "staffId_1",
+    "orderId": "orderId_1",
+    "status": "DONE"
+  },
+  "staff": {
+    "id": "staffId_1",
+    "userId": "userId_1",
+    "status": "ONLINE"
+  },
+  "user": {
+    "id": "userId_1",
+    "firstName": "Romantic",
+    "lastName": "Haha"
+  }
+}
 ```
 
 ---
@@ -132,7 +163,7 @@ fragment fullUser on User {
 query
 
 ```
-query Staff($id: Int!){
+query Staff($id: String){
   StaffOne(id: $id){
     id
   	userId
@@ -161,3 +192,15 @@ query variables
 ```
 
 ---
+
+## Middleware
+
+- apply to all root type (Mutation, Query)
+- apply to specific root type(MutationTC or QueryTC)
+- apply to specific resolver
+
+### Apply to all root type (Mutation, Query)
+
+### Apply to specific root type(MutationTC or QueryTC)
+
+### Apply to specific resolver
