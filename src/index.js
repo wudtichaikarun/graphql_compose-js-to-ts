@@ -7,6 +7,7 @@ import { mergeSchemas } from 'graphql-tools'
 import graphqlHTTP from 'koa-graphql'
 import mount from 'koa-mount'
 import { buildSchema } from './schema'
+import config from './config/index'
 ;(async () => {
   const app = new Koa()
   app.use(
@@ -48,10 +49,8 @@ import { buildSchema } from './schema'
     )
   )
 
-  const PORT = 4001
-
-  const server = app.listen(PORT, () => {
-    console.log(`API server listening on ${PORT}`)
+  const server = app.listen(config.PORT, () => {
+    console.log(`API server listening on ${config.PORT}`)
   })
 
   gracefulShutdown(server)

@@ -1,5 +1,8 @@
 import { schemaComposer } from 'graphql-compose'
 import composeWithJson from 'graphql-compose-json'
+import { withMiddlewares } from '../../middlewares/withMiddlewares'
+import { authMiddleware } from '../../middlewares/authMiddleware'
+import { logResolveParams } from '../../middlewares/logResolveParams'
 
 import TripTC from '../trip/trip.tc'
 
@@ -69,9 +72,14 @@ export default function () {
     },
   })
 
+  // private query
+  withMiddlewares([authMiddleware], schemaComposer.Query, {
+    [`${TCname}Many`]: TC.getResolver('find'),
+  })
+
+  // public query
   schemaComposer.Query.addFields({
     [`${TCname}One`]: TC.getResolver('findById'),
-    [`${TCname}Many`]: TC.getResolver('find'),
   })
 
   return TC
