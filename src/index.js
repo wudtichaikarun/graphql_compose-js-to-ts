@@ -1,7 +1,6 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import compress from 'koa-compress'
-import { PubSub } from 'graphql-yoga'
 import cors from '@koa/cors'
 import gracefulShutdown from 'http-graceful-shutdown'
 import { mergeSchemas } from 'graphql-tools'
@@ -10,12 +9,11 @@ import mount from 'koa-mount'
 import { buildSchema } from './schema'
 ;(async () => {
   const app = new Koa()
-  const pubsub = new PubSub()
   app.use(
     bodyParser({
       enableTypes: ['json', 'form'],
       formLimit: '10mb',
-      jsonLimit: '10mb'
+      jsonLimit: '10mb',
     })
   )
 
@@ -25,7 +23,7 @@ import { buildSchema } from './schema'
     cors({
       origin: '*',
       allowMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH'],
-      exposeHeaders: ['X-Request-Id']
+      exposeHeaders: ['X-Request-Id'],
     })
   )
 
@@ -34,19 +32,17 @@ import { buildSchema } from './schema'
   app.use(
     mount(
       '/',
-      graphqlHTTP(request => {
+      graphqlHTTP((request) => {
         return {
           schema: mergeSchemas({ schemas }),
           graphiql: true,
           context: {
             req: request,
-            pubsub
           },
-          formatError: err => ({
-            locations: err.locations,
-            path: err.path,
-            message: err.message
-          })
+          formatError: (err) => {
+            // console.error('error', err)
+            return err
+          },
         }
       })
     )

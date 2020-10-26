@@ -3,7 +3,7 @@ import composeWithJson from 'graphql-compose-json'
 
 export default function () {
   // ## 1 compose with json
-  // const TC = composeWithJson('Simple', { id: '', description: '', status: '' })
+  const TC = composeWithJson('Simple', { id: '', description: '', status: '' })
 
   // ## 2
   // Type creation https://graphql-compose.github.io/docs/basics/understanding-types.html
@@ -25,14 +25,45 @@ export default function () {
   // })
 
   // ## 3 using SDL for definition new ObjectType
-  schemaComposer.createEnumTC(`enum StatusEnum { NEW APPROVED DECLINED }`)
-  const TC = `type Simple {
-    id: String
-    description: String
-    status: StatusEnum
-  }`
+  // schemaComposer.createEnumTC(`enum StatusEnum { NEW APPROVED DECLINED }`)
+  // const TC = `type Simple {
+  //   id: String
+  //   description: String
+  //   status: StatusEnum
+  // }`
 
-  // ## 4 using standard GraphQL Type
+  // ## 4
+  // schemaComposer.createEnumTC(`enum StatusEnum { NEW APPROVED DECLINED }`)
+  // const TC = schemaComposer.createObjectTC(`
+  //   type Simple {
+  //     id: String
+  //     description: String
+  //     status: StatusEnum
+  //   }
+  // `)
+
+  // ## 5
+  // const TC = schemaComposer.createObjectTC({
+  //   name: 'Simple',
+  //   fields: {
+  //     id: 'String',
+  //     description: 'String',
+  //     status: `enum StatusEnum { NEW APPROVED DECLINED }`,
+  //   },
+  // })
+
+  // ## 5
+  // let TC = composeWithJson('Simple', { id: '', description: '' })
+  // TC.addFields({
+  //   status: `enum StatusEnum { NEW APPROVED DECLINED }`,
+  // })
+
+  // ##
+  // const StatusETC = schemaComposer.createEnumTC(`enum StatusEnum { NEW APPROVED DECLINED }`)
+  // let TC = composeWithJson('Simple', { id: '', description: '' })
+  // TC.addFields({
+  //   status: StatusETC,
+  // })
 
   schemaComposer.Query.addFields({
     SimpleQuery: {
