@@ -1,7 +1,5 @@
 import { schemaComposer } from 'graphql-compose'
 import composeWithJson from 'graphql-compose-json'
-import { PubSub } from 'graphql-subscriptions'
-import { withFilter } from 'graphql-subscriptions'
 
 import TripTC from '../trip/trip.tc'
 

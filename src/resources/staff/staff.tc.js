@@ -5,7 +5,6 @@ import UserTC from '../user/user.tc'
 
 import { FilterITC } from '../../shareType'
 import { schema } from './schema'
-import { staffs } from '../../../build/resources/staff/staffs'
 
 function getStaffs() {
   return Promise.resolve([
