@@ -1,12 +1,14 @@
 # graphql_compose-js-to-ts
 
-- Installation
-- Data model example
-- GraphQL Simple query
-- GraphQL Query Fragment
-- GraphQL Alias Example
-- GraphQL Query Variables
-- Middleware
+- [x] Installation
+- [x] Data model example
+- [x] GraphQL Simple query
+- [x] GraphQL Query Fragment
+- [x] GraphQL Alias Example
+- [x] GraphQL Query Variables
+- [ ] Middleware
+- [ ] Error handler
+- [ ] Caching
 
 ---
 
@@ -56,6 +58,44 @@ npm run dev
 
 ```
 {
+  simple: SimpleQueryOne{
+    id
+    description
+    status
+  }
+
+  simples: SimpleQueryMany{
+    id
+   	description
+   	status
+  }
+
+  orders1: OrderMany(filter: {}){
+  	id
+  	status
+	}
+
+  orders2: OrderMany(filter: {limit: 2}){
+    id
+    status
+    trip {
+      id
+      status
+      orderId
+      staffId
+      staff {
+        id
+        status
+        userId
+        user {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+
   staffs: StaffMany(filter: {}) {
     id
     userId

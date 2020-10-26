@@ -52,13 +52,13 @@ export default function () {
   //   },
   // })
 
-  // ## 5
+  // ## 6
   // let TC = composeWithJson('Simple', { id: '', description: '' })
   // TC.addFields({
   //   status: `enum StatusEnum { NEW APPROVED DECLINED }`,
   // })
 
-  // ##
+  // ## 7
   // const StatusETC = schemaComposer.createEnumTC(`enum StatusEnum { NEW APPROVED DECLINED }`)
   // let TC = composeWithJson('Simple', { id: '', description: '' })
   // TC.addFields({
