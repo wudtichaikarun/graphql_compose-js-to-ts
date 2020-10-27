@@ -79,7 +79,7 @@ export default function () {
 
   // public query
   schemaComposer.Query.addFields({
-    [`${TCname}One`]: TC.getResolver('findById'),
+    [`${TCname}One`]: TC.getResolver('findById', [logResolveParams]),
   })
 
   return TC
