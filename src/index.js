@@ -9,6 +9,13 @@ import mount from 'koa-mount'
 import { buildSchema } from './schema'
 import requestId from './middlewares/requestId'
 import config from './config/index'
+
+const extensions = ({ document, variables, operationName, result, context }) => {
+  return {
+    runTime: `${Date.now() - context.startTime} millisecond`,
+  }
+}
+
 ;(async () => {
   const app = new Koa()
   app.use(
@@ -37,17 +44,21 @@ import config from './config/index'
   app.use(
     mount(
       '/',
+      // The GraphQL response allows for adding additional information in a response to a GraphQL query
       graphqlHTTP((request) => {
         return {
           schema: mergeSchemas({ schemas }),
           graphiql: true,
           context: {
             req: request,
+            startTime: Date.now(),
           },
           formatError: (err) => {
             // console.error('error', err)
             return err
           },
+          // https://github.com/graphql-community/koa-graphql#readme
+          // extensions,
         }
       })
     )
