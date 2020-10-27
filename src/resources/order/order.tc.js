@@ -72,14 +72,16 @@ export default function () {
     },
   })
 
-  // private query
+  // ## 1 middleware
   withMiddlewares([authMiddleware], schemaComposer.Query, {
     [`${TCname}Many`]: TC.getResolver('find'),
   })
 
   // public query
   schemaComposer.Query.addFields({
-    [`${TCname}One`]: TC.getResolver('findById', [logResolveParams]),
+    // ## 2 middleware
+    // [`${TCname}One`]: TC.getResolver('findById', [logResolveParams]),
+    [`${TCname}One`]: TC.getResolver('findById'),
   })
 
   return TC

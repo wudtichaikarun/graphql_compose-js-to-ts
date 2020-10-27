@@ -44,6 +44,7 @@
     "koa-graphql": "^0.8.0",
     "koa-mount": "^4.0.0",
     "ramda": "^0.27.1",
-    "recursive-readdir-sync": "^1.0.6"
+    "recursive-readdir-sync": "^1.0.6",
+    "uuid": "^8.3.1"
   }
 }

@@ -6,7 +6,7 @@ export async function logResolveParams(resolver, source, args, context, info) {
       context,
       info,
     },
-    { depth: 2 }
+    { depth: 3 }
   )
 
   return resolver(source, args, context, info)

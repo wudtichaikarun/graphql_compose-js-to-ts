@@ -7,6 +7,7 @@ import { mergeSchemas } from 'graphql-tools'
 import graphqlHTTP from 'koa-graphql'
 import mount from 'koa-mount'
 import { buildSchema } from './schema'
+import requestId from './middlewares/requestId'
 import config from './config/index'
 ;(async () => {
   const app = new Koa()
@@ -27,6 +28,9 @@ import config from './config/index'
       exposeHeaders: ['X-Request-Id'],
     })
   )
+
+  // ## 3 middleware
+  // app.use(requestId())
 
   const schemas = await buildSchema()
 
