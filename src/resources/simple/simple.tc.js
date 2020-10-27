@@ -1,6 +1,7 @@
 import { schemaComposer } from 'graphql-compose'
 import composeWithJson from 'graphql-compose-json'
 
+// https://github.com/graphql-compose/graphql-compose
 export default function () {
   // ## 1 compose with json
   const TC = composeWithJson('Simple', { id: '', description: '', status: '' })
